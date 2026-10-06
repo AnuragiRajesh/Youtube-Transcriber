@@ -6,10 +6,14 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 VENV="$SCRIPT_DIR/venv"
 
-if [ ! -f "$VENV/bin/python" ]; then
+if [ -n "${VIRTUAL_ENV:-}" ] && [ -x "$VIRTUAL_ENV/bin/python" ]; then
+  PYTHON="$VIRTUAL_ENV/bin/python"
+elif [ -x "$VENV/bin/python" ]; then
+  PYTHON="$VENV/bin/python"
+else
   echo "Error: venv not found at $VENV"
-  echo "Run setup first: see README.md"
+  echo "Activate a virtual environment or create one at $VENV; see README.md"
   exit 1
 fi
 
-exec "$VENV/bin/python" "$SCRIPT_DIR/transcribe.py" "$@"
+exec "$PYTHON" "$SCRIPT_DIR/transcribe.py" "$@"

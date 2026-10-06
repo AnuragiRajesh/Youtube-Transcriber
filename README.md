@@ -8,9 +8,14 @@ Works even when the video has captions/transcripts **disabled** — it downloads
 ## Quick start
 
 ```bash
-cd ~/Desktop/yt-transcriber
+cd ~/Youtube-Transcriber
+python3 -m venv venv
+source venv/bin/activate
+python -m pip install -r requirements.txt
 ./run.sh "https://www.youtube.com/watch?v=VIDEO_ID"
 ```
+
+You can use a virtual environment with any name: activate it, install the dependencies with `python -m pip install -r requirements.txt`, then run `./run.sh`. The launcher uses the active environment first, or `./venv` if none is active. FFmpeg must also be installed on your system for audio extraction.
 
 The transcript is saved to `~/Desktop/<video_title>.txt` by default.
 
